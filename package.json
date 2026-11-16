@@ -1,5 +1,5 @@
 {
-  "name": "dropbin",
+  "name": "dropdrop",
   "version": "0.1.0-dev.0",
   "private": true,
   "type": "module",
@@ -12,7 +12,7 @@
     "packages/*"
   ],
   "bin": {
-    "dropbin": "./dist/apps/cli/src/main.js"
+    "dropdrop": "./dist/apps/cli/src/main.js"
   },
   "files": [
     "dist/apps/cli/src/*.js",
@@ -21,8 +21,8 @@
     "dist/packages/storage/src/*.js",
     "dist/packages/storage/migrations/*.sql",
     "dist/web/index.html",
-    "dist/web/assets/dropbin.js",
-    "dist/web/assets/dropbin.css"
+    "dist/web/assets/dropdrop.js",
+    "dist/web/assets/dropdrop.css"
   ],
   "scripts": {
     "build": "tsc && vite build --config apps/web/vite.config.ts && node scripts/copy-migration.mjs",

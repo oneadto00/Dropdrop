@@ -8,7 +8,7 @@ $user = [Security.Principal.WindowsIdentity]::GetCurrent().User.Value
 $trusted = @($user,'S-1-5-18','S-1-5-32-544','S-1-3-0')
 $names = @('','instance.json','control.json','control.tmp','staging','objects','lock.sqlite','dropbin.sqlite','dropbin.sqlite-wal','dropbin.sqlite-shm','maintenance')
 foreach ($name in $names) {
-  $p = if ($name) { Join-Path $env:DROPBIN_ACL_ROOT $name } else { $env:DROPBIN_ACL_ROOT }
+  $p = if ($name) { Join-Path $env:DROPDROP_ACL_ROOT $name } else { $env:DROPDROP_ACL_ROOT }
   if (!(Test-Path -LiteralPath $p)) { continue }
   $item = Get-Item -LiteralPath $p -Force
   if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) { exit 2 }
@@ -23,7 +23,7 @@ foreach ($name in $names) {
       "powershell.exe",
       ["-NoProfile", "-NonInteractive", "-Command", script],
       {
-        env: { ...process.env, DROPBIN_ACL_ROOT: root },
+        env: { ...process.env, DROPDROP_ACL_ROOT: root },
         stdio: "ignore",
         timeout: 10000,
       },

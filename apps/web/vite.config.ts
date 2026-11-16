@@ -9,8 +9,8 @@ export default defineConfig({
     emptyOutDir: true,
     rolldownOptions: {
       output: {
-        entryFileNames: "assets/dropbin.js",
-        assetFileNames: "assets/dropbin.[ext]",
+        entryFileNames: "assets/dropdrop.js",
+        assetFileNames: "assets/dropdrop.[ext]",
       },
     },
   },

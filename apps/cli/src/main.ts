@@ -20,7 +20,7 @@ import {
 import { rankAddresses } from "./network-address.js";
 import { listenControl, requestControl } from "./control.js";
 const help =
-  "Dropdrop 局域网文件中转\n  dropbin start [--host IPv4] [--port 端口] [--data-dir 目录] [--cert 证书 --key 私钥]\n    [--max-file-bytes 字节] [--max-batch-bytes 字节] [--total-bytes 字节]\n    [--max-active-downloads <1-64>] [--max-active-uploads <1-16>]\n  dropbin cleanup [--data-dir 目录] [--dry-run] [--json]";
+  "Dropdrop 局域网文件中转\n  dropdrop start [--host IPv4] [--port 端口] [--data-dir 目录] [--cert 证书 --key 私钥]\n    [--max-file-bytes 字节] [--max-batch-bytes 字节] [--total-bytes 字节]\n    [--max-active-downloads <1-64>] [--max-active-uploads <1-16>]\n  dropdrop cleanup [--data-dir 目录] [--dry-run] [--json]";
 function integer(
   input: string | undefined,
   fallback: number,
@@ -73,7 +73,7 @@ async function main() {
         ? (process.env.LOCALAPPDATA ?? join(homedir(), "AppData/Local"))
         : (process.env.XDG_DATA_HOME ?? join(homedir(), ".local/share"));
   const root = safeRoot(
-    v["data-dir"] ?? process.env.DROPBIN_DATA_DIR ?? join(base, "Dropbin"),
+    v["data-dir"] ?? process.env.DROPDROP_DATA_DIR ?? join(base, "Dropdrop"),
   );
   const preview = !!v["dry-run"];
   const output = (report: unknown) => {
@@ -140,7 +140,7 @@ async function main() {
         "未找到可用的局域网地址，可使用 --host 指定 IPv4，或使用 --host 127.0.0.1 本机试用",
       );
     const host = v.host ?? visible;
-    const port = integer(v.port ?? process.env.DROPBIN_PORT, 0, 0, 65535);
+    const port = integer(v.port ?? process.env.DROPDROP_PORT, 0, 0, 65535);
     if (!isIPv4(host))
       throw Error("请选择本机 IPv4 网卡，可使用 --host 127.0.0.1");
     if (!!v.cert !== !!v.key) throw Error("证书和私钥需要同时设置");
