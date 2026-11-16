@@ -1,0 +1,65 @@
+{
+  "name": "dropbin",
+  "version": "0.1.0-dev.0",
+  "private": true,
+  "type": "module",
+  "description": "本机部署的局域网文件中转工具",
+  "engines": {
+    "node": ">=24.22.3 <25 || >=26.13.1 <27"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "bin": {
+    "dropbin": "./dist/apps/cli/src/main.js"
+  },
+  "files": [
+    "dist/apps/cli/src/*.js",
+    "dist/packages/core/src/*.js",
+    "dist/packages/server/src/*.js",
+    "dist/packages/storage/src/*.js",
+    "dist/packages/storage/migrations/*.sql",
+    "dist/web/index.html",
+    "dist/web/assets/dropbin.js",
+    "dist/web/assets/dropbin.css"
+  ],
+  "scripts": {
+    "build": "tsc && vite build --config apps/web/vite.config.ts && node scripts/copy-migration.mjs",
+    "start": "node dist/apps/cli/src/main.js start",
+    "typecheck": "tsc --noEmit && vue-tsc -p apps/web/tsconfig.json --noEmit",
+    "format:check": "prettier --check apps packages scripts *.json *.mjs .github",
+    "lint": "eslint apps packages scripts",
+    "docs:check": "node scripts/docs-check.mjs"
+  },
+  "dependencies": {
+    "@fastify/cookie": "11.1.5",
+    "@fastify/multipart": "10.1.8",
+    "@fastify/static": "10.1.11",
+    "better-sqlite3": "13.2.0",
+    "fastify": "5.12.8",
+    "qrcode": "1.5.4"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "9.6.0",
+    "@types/node": "26.6.6",
+    "@types/qrcode": "1.5.6",
+    "@vitejs/plugin-vue": "6.0.11",
+    "eslint": "10.15.0",
+    "prettier": "3.10.1",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.72.2",
+    "vite": "8.3.8",
+    "vue": "3.5.45",
+    "vue-tsc": "3.3.14"
+  },
+  "allowScripts": {
+    "better-sqlite3": true,
+    "fsevents": false
+  },
+  "overrides": {
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "11.0.8"
+    }
+  }
+}

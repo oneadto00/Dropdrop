@@ -1,0 +1,5 @@
+{
+  "name": "@dropbin/server",
+  "private": true,
+  "type": "module"
+}

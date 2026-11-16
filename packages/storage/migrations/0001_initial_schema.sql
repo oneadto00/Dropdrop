@@ -1,0 +1,12 @@
+CREATE TABLE schema_migrations(version INTEGER PRIMARY KEY, applied_at INTEGER NOT NULL);
+CREATE TABLE browser_sessions(id TEXT PRIMARY KEY, csrf TEXT NOT NULL, expires_at INTEGER NOT NULL);
+CREATE TABLE batches(id TEXT PRIMARY KEY, owner TEXT NOT NULL, state TEXT NOT NULL CHECK(state IN ('uploading','ready','exhausted','deleting')), max_downloads INTEGER NOT NULL CHECK(max_downloads BETWEEN 1 AND 1000), started_downloads INTEGER NOT NULL DEFAULT 0 CHECK(started_downloads BETWEEN 0 AND max_downloads), ttl INTEGER NOT NULL, created_at INTEGER NOT NULL, expires_at INTEGER NOT NULL, password_hash TEXT, salt TEXT, kdf_params TEXT NOT NULL DEFAULT 'scrypt:N=32768,r=8,p=3,len=32');
+CREATE TABLE files(id TEXT PRIMARY KEY,batch_id TEXT NOT NULL REFERENCES batches ON DELETE CASCADE,display_name TEXT NOT NULL,size INTEGER NOT NULL CHECK(size>=0),sha256 TEXT);
+CREATE INDEX files_batch ON files(batch_id);
+CREATE TABLE pickup_codes(digest TEXT PRIMARY KEY,batch_id TEXT UNIQUE REFERENCES batches ON DELETE SET NULL,reason TEXT,until_at INTEGER);
+CREATE TABLE download_claims(id TEXT PRIMARY KEY,batch_id TEXT NOT NULL REFERENCES batches ON DELETE CASCADE,session_id TEXT NOT NULL,counted_at INTEGER,until_at INTEGER NOT NULL,completed INTEGER NOT NULL DEFAULT 0,UNIQUE(batch_id,session_id));
+CREATE TABLE claim_files(claim_id TEXT NOT NULL REFERENCES download_claims ON DELETE CASCADE,file_id TEXT NOT NULL REFERENCES files ON DELETE CASCADE,ranges TEXT NOT NULL,complete INTEGER NOT NULL,PRIMARY KEY(claim_id,file_id));
+CREATE TABLE cleanup_jobs(batch_id TEXT PRIMARY KEY REFERENCES batches ON DELETE CASCADE,reason TEXT NOT NULL,attempts INTEGER NOT NULL DEFAULT 0,next_retry_at INTEGER NOT NULL DEFAULT 0);
+INSERT INTO schema_migrations VALUES(1,unixepoch()*1000);
+CREATE TABLE transfer_attempts(id TEXT PRIMARY KEY,claim_id TEXT NOT NULL REFERENCES download_claims ON DELETE CASCADE,file_id TEXT NOT NULL REFERENCES files ON DELETE CASCADE,range_start INTEGER NOT NULL,range_end INTEGER NOT NULL,state TEXT NOT NULL,emitted_bytes INTEGER NOT NULL DEFAULT 0,started_at INTEGER NOT NULL,ended_at INTEGER);
+CREATE INDEX attempts_claim ON transfer_attempts(claim_id,started_at);

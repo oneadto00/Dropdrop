@@ -1,0 +1,5 @@
+{
+  "name": "@dropbin/core",
+  "private": true,
+  "type": "module"
+}
