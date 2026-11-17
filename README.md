@@ -98,3 +98,12 @@ npm pack
 ```
 
 `npm pack` 将 CLI、网页静态资源和数据库迁移打包到本地 tarball。网页资源随包提供，运行时使用本机文件系统和 SQLite 存储。
+
+## 开源许可
+
+Dropdrop 的原创代码采用 **Apache License, Version 2.0**（`Apache-2.0`），详见
+[LICENSE](LICENSE) 和 [NOTICE](NOTICE)。
+
+第三方组件仍受各自许可证约束。依赖版本、许可正文、源码获取地址与分发要求见
+[THIRD_PARTY_NOTICES.txt](THIRD_PARTY_NOTICES.txt)。该文件随 npm tarball 打包；
+浏览器 JavaScript 也保留所含 Vue 运行时的版权与许可正文。更新依赖后应重新核查。

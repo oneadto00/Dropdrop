@@ -1,5 +1,6 @@
 {
   "name": "dropdrop",
+  "license": "Apache-2.0",
   "version": "0.1.0-dev.0",
   "private": true,
   "type": "module",
@@ -22,7 +23,10 @@
     "dist/packages/storage/migrations/*.sql",
     "dist/web/index.html",
     "dist/web/assets/dropdrop.js",
-    "dist/web/assets/dropdrop.css"
+    "dist/web/assets/dropdrop.css",
+    "LICENSE",
+    "NOTICE",
+    "THIRD_PARTY_NOTICES.txt"
   ],
   "scripts": {
     "build": "tsc && vite build --config apps/web/vite.config.ts && node scripts/copy-migration.mjs",
