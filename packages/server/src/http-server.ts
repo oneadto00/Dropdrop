@@ -6,9 +6,9 @@ import { randomBytes } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import type { ServerOptions } from "node:https";
 import { Fault, fail, messages } from "../../core/src/index.js";
-import { Transfers, digest, type Manifest } from "./transfers.js";
-import { content } from "./content.js";
-import { upload } from "./upload.js";
+import { Transfers, digest, type Manifest } from "./transfer-service.js";
+import { handleDownload } from "./download-handler.js";
+import { handleUpload } from "./upload-handler.js";
 async function whileConnected<Result>(
   reply: FastifyReply,
   operation: (signal: AbortSignal) => Promise<Result>,
@@ -201,7 +201,7 @@ export async function makeHttp(
   app.post<{ Params: Params }>(
     prefix + "/uploads/:batchId/files/:fileId",
     async (req) =>
-      upload(s, req, sid(req), req.params.batchId, req.params.fileId),
+      handleUpload(s, req, sid(req), req.params.batchId, req.params.fileId),
   );
   app.post<{ Params: Params }>(
     prefix + "/uploads/:batchId/finalize",
@@ -236,7 +236,14 @@ export async function makeHttp(
     method: ["GET", "HEAD"],
     url: prefix + "/claims/:claimId/files/:fileId/content",
     handler: (req, reply) =>
-      content(s, req, reply, sid(req), req.params.claimId, req.params.fileId),
+      handleDownload(
+        s,
+        req,
+        reply,
+        sid(req),
+        req.params.claimId,
+        req.params.fileId,
+      ),
   });
   await app.register(serve, {
     root: fileURLToPath(new URL("../../../web/", import.meta.url)),

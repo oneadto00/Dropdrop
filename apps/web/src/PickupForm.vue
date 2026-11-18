@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from "vue";
-import { api, explain, size, ApiError, prefix, type Claim } from "./api";
+import { api, explain, ApiError, prefix, type Claim } from "./api-client";
+import { formatBytes } from "./format-bytes";
 const code = ref(""),
   password = ref(""),
   claim = ref<Claim>(),
@@ -137,16 +138,16 @@ onBeforeUnmount(() => {
       <ul>
         <li v-for="f in claim.files" :key="f.id">
           <strong>{{ f.name }}</strong><small
-            >{{ size(f.size) }} · 服务端已传
+            >{{ formatBytes(f.size) }} · 服务端已传
             {{
-              size(
+              formatBytes(
                 claim.progress.find((p) => p.fileId === f.id)?.servedBytes ?? 0,
               )
             }}</small
           ><small v-if="claim.active.some((a) => a.fileId === f.id)"
             >当前请求已输出
             {{
-              size(
+              formatBytes(
                 claim.active.find((a) => a.fileId === f.id)?.emittedBytes ?? 0,
               )
             }}</small

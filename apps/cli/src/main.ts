@@ -18,7 +18,7 @@ import {
 } from "../../../packages/server/src/index.js";
 
 import { rankAddresses } from "./network-address.js";
-import { listenControl, requestControl } from "./control.js";
+import { listenControl, requestControl } from "./control-channel.js";
 const help =
   "Dropdrop 局域网文件中转\n  dropdrop start [--host IPv4] [--port 端口] [--data-dir 目录] [--cert 证书 --key 私钥]\n    [--max-file-bytes 字节] [--max-batch-bytes 字节] [--total-bytes 字节]\n    [--max-active-downloads <1-64>] [--max-active-uploads <1-16>]\n  dropdrop cleanup [--data-dir 目录] [--dry-run] [--json]";
 function integer(

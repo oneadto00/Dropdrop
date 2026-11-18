@@ -4,8 +4,8 @@ import { Transform } from "node:stream";
 import { pipeline } from "node:stream/promises";
 import type { FastifyRequest } from "fastify";
 import { fail, Fault } from "../../core/src/index.js";
-import type { Transfers } from "./transfers.js";
-export async function upload(
+import type { Transfers } from "./transfer-service.js";
+export async function handleUpload(
   s: Transfers,
   req: FastifyRequest,
   sid: string,

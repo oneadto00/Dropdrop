@@ -6,7 +6,7 @@ import {
 } from "node:crypto";
 // Only the failure reason may be recovered once a claim's database row is gone.
 // Binding the encrypted lookup key to the browser prevents cross-session lookups.
-export class ClaimIds {
+export class ClaimTokenCodec {
   private readonly key: Buffer;
   constructor(secret: string) {
     this.key = createHmac("sha256", secret)

@@ -1,4 +1,4 @@
-import { acquireInstanceLock } from "./repository.js";
+import { acquireInstanceLock } from "./instance-lock.js";
 import {
   mkdirSync,
   readdirSync,

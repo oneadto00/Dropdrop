@@ -1,2 +1,2 @@
-export { Transfers, defaults } from "./transfers.js";
-export { makeHttp } from "./http.js";
+export { Transfers, defaults } from "./transfer-service.js";
+export { makeHttp } from "./http-server.js";

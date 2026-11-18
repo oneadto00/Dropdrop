@@ -33,7 +33,7 @@
     "THIRD_PARTY_NOTICES.txt"
   ],
   "scripts": {
-    "build": "tsc && vite build --config apps/web/vite.config.ts && node scripts/copy-migration.mjs",
+    "build": "tsc && vite build --config apps/web/vite.config.ts && node scripts/prepare-dist.mjs",
     "start": "node dist/apps/cli/src/main.js start",
     "typecheck": "tsc --noEmit && vue-tsc -p apps/web/tsconfig.json --noEmit",
     "format:check": "prettier --check apps packages scripts *.json *.mjs .github",

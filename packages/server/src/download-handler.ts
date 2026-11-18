@@ -4,14 +4,14 @@ import { Readable, Transform } from "node:stream";
 import { pipeline } from "node:stream/promises";
 import type { FastifyReply, FastifyRequest } from "fastify";
 import { Fault, fail, selectRange, mergeRanges } from "../../core/src/index.js";
-import type { Transfers, Task } from "./transfers.js";
+import type { Transfers, Task } from "./transfer-service.js";
 function matches(value: string | undefined, tag: string, weak: boolean) {
   return value?.split(",").some((s) => {
     const t = s.trim();
     return t === "*" || (weak ? t.replace(/^W\//, "") : t) === tag;
   });
 }
-export async function content(
+export async function handleDownload(
   s: Transfers,
   req: FastifyRequest,
   reply: FastifyReply,

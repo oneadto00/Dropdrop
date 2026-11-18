@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import type Database from "better-sqlite3";
-import type { Instance } from "./instance.js";
+import type { Instance } from "./instance-storage.js";
 import {
   fail,
   mergeRanges,
@@ -481,15 +481,5 @@ export function previewBatchCount(instance: Instance) {
     );
   } finally {
     connection.close();
-  }
-}
-export function acquireInstanceLock(instance: Instance) {
-  const connection = instance.database("lock.sqlite");
-  try {
-    connection.exec("BEGIN EXCLUSIVE");
-    return connection;
-  } catch (error) {
-    connection.close();
-    throw error;
   }
 }

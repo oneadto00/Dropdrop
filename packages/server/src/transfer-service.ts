@@ -5,7 +5,7 @@ import { RateLimiter } from "./rate-limiter.js";
 import { PasswordHasher, type Derive } from "./password-hasher.js";
 import { PickupService } from "./pickup-service.js";
 import { CleanupService } from "./cleanup-service.js";
-import { ClaimIds } from "./claim-id.js";
+import { ClaimTokenCodec } from "./claim-token.js";
 import { createHash, randomInt } from "node:crypto";
 import { clock, type Code } from "../../core/src/index.js";
 import {
@@ -77,7 +77,7 @@ export class Transfers {
       this.repo,
       limits,
       now,
-      new ClaimIds(instance.secret),
+      new ClaimTokenCodec(instance.secret),
       this.manager,
       this.maintenanceGate,
       this.passwords,

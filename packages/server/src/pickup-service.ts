@@ -6,14 +6,14 @@ import type { MaintenanceService } from "./maintenance-service.js";
 import type { PasswordHasher } from "./password-hasher.js";
 import type { BatchService } from "./batch-service.js";
 import type { RateLimiter } from "./rate-limiter.js";
-import type { ClaimIds } from "./claim-id.js";
+import type { ClaimTokenCodec } from "./claim-token.js";
 import { timingSafeEqual } from "node:crypto";
 export class PickupService {
   constructor(
     private readonly repo: Repository,
     private readonly limits: Limits,
     private readonly now: () => number,
-    private readonly claimIds: ClaimIds,
+    private readonly claimTokens: ClaimTokenCodec,
     private readonly manager: TransferManager,
     private readonly maintenanceGate: MaintenanceService,
     private readonly passwords: PasswordHasher,
@@ -68,7 +68,7 @@ export class PickupService {
       if (batch.state === "exhausted") fail("QUOTA_EXHAUSTED");
       if (batch.state !== "ready") fail("PICKUP_UNAVAILABLE");
       if (this.repo.pendingClaimCount(sid, now) >= 5) fail("TRANSFER_BUSY");
-      const id = this.claimIds.create(sid, key);
+      const id = this.claimTokens.create(sid, key);
       this.repo.createClaim(
         id,
         batch.id,
@@ -82,7 +82,7 @@ export class PickupService {
   claim(id: string, sid: string) {
     const row = this.repo.findClaim(id, sid);
     if (row) return row;
-    const digest = this.claimIds.lookup(id, sid);
+    const digest = this.claimTokens.lookup(id, sid);
     if (!digest) fail("FORBIDDEN");
     const cooldown = this.repo.findCooldown(digest, this.now());
     fail(cooldown?.reason ?? "CLAIM_EXPIRED");

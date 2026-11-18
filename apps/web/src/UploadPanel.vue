@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onBeforeUnmount } from "vue";
-import { api, explain, size, sendFile, ApiError, type Batch } from "./api";
+import { api, explain, sendFile, ApiError, type Batch } from "./api-client";
+import { formatBytes } from "./format-bytes";
 const files = ref<File[]>([]),
   limit = ref(1),
   ttl = ref(3600),
@@ -148,7 +149,7 @@ onBeforeUnmount(() => {
     /></label>
     <ul v-if="files.length">
       <li v-for="(f, i) in files" :key="i">
-        {{ f.name }} <small>{{ size(f.size) }}</small>
+        {{ f.name }} <small>{{ formatBytes(f.size) }}</small>
       </li>
     </ul>
     <div class="fields">
