@@ -149,7 +149,7 @@ export async function makeHttp(
       .send({ code: e.code, message: msg, requestId: req.id });
   });
   const session = (req: FastifyRequest) => {
-    const token = req.cookies.dropbin;
+    const token = req.cookies.dropdrop;
     return token && token.length === 64
       ? s.repo.findSession(digest(token), s.now())
       : undefined;
@@ -174,7 +174,7 @@ export async function makeHttp(
       const token = randomBytes(32).toString("hex");
       row = { id: digest(token), csrf: randomBytes(24).toString("hex") };
       s.repo.createSession(row.id, row.csrf, s.now() + 86400000);
-      reply.setCookie("dropbin", token, {
+      reply.setCookie("dropdrop", token, {
         path: "/",
         httpOnly: true,
         sameSite: "strict",

@@ -1,6 +1,9 @@
 Dropdrop
 Copyright 2026 oneadto00
 
-This project is licensed under the Apache License, Version 2.0.
-Third-party components retain their respective licenses and copyrights.
-See THIRD_PARTY_NOTICES.txt for their notices and source locations.
+This product includes software developed for Dropdrop and licensed under the
+Apache License, Version 2.0 (see LICENSE).
+
+Runtime dependencies and bundled browser components retain their respective
+copyrights and licenses. See THIRD_PARTY_NOTICES.txt for component versions,
+source locations, and license texts.

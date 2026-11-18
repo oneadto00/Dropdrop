@@ -10,7 +10,7 @@ export class ClaimIds {
   private readonly key: Buffer;
   constructor(secret: string) {
     this.key = createHmac("sha256", secret)
-      .update("Dropbin claim identifiers v1")
+      .update("Dropdrop claim identifiers v1")
       .digest();
   }
   create(session: string, codeDigest: string) {

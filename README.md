@@ -67,7 +67,7 @@ npm start -- --host 127.0.0.1 --port 8787
 
 容量参数使用整数 bytes，1 GiB = 1,073,741,824 bytes。服务还会检查磁盘剩余空间，并预留 1 GiB。同一接收会话最多同时下载两个不同文件，每个浏览器最多同时上传一个文件。
 
-首次启动时，请选择新目录或空的用户专用目录。省略目录参数和环境变量时，使用当前用户的系统应用数据目录，其子目录名为 `Dropdrop`。终端会打印实际实例目录，后续清理时使用该路径。升级前已经创建的实例可通过 `--data-dir` 指向原目录，或用 `DROPDROP_DATA_DIR` 设置其路径。
+首次启动时，请选择新目录或空的用户专用目录。省略目录参数和环境变量时，使用当前用户的系统应用数据目录，其子目录名为 `Dropdrop`。终端会打印实际实例目录，后续清理时使用该路径。若旧开发版遗留的目录提示“实例标识不符”，请备份或清空旧目录后重新初始化，或使用 `--data-dir`（及 `DROPDROP_DATA_DIR`）指定新的实例目录。
 
 ## 本机清理
 
@@ -92,7 +92,6 @@ node dist/apps/cli/src/main.js cleanup --data-dir ./dropdrop-data --dry-run
 npm run format:check
 npm run lint
 npm run typecheck
-npm run docs:check
 npm run build
 npm pack
 ```
@@ -104,6 +103,6 @@ npm pack
 Dropdrop 的原创代码采用 **Apache License, Version 2.0**（`Apache-2.0`），详见
 [LICENSE](LICENSE) 和 [NOTICE](NOTICE)。
 
-第三方组件仍受各自许可证约束。依赖版本、许可正文、源码获取地址与分发要求见
+运行时依赖及随前端产物分发的第三方组件仍受各自许可证约束。组件版本、源码获取地址与许可正文见
 [THIRD_PARTY_NOTICES.txt](THIRD_PARTY_NOTICES.txt)。该文件随 npm tarball 打包；
-浏览器 JavaScript 也保留所含 Vue 运行时的版权与许可正文。更新依赖后应重新核查。
+浏览器 JavaScript 也保留所含前端运行时的版权与许可正文。更新依赖后应重新核查。

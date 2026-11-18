@@ -71,7 +71,7 @@ export class Instance {
       for (const name of ["staging", "objects"])
         mkdirSync(join(this.root, name), { mode: 0o700 });
       const data: Marker = {
-        format: "Dropbin-1",
+        format: "Dropdrop-1",
         root,
         objects: identity(join(this.root, "objects"), true),
         staging: identity(join(this.root, "staging"), true),
@@ -82,7 +82,7 @@ export class Instance {
     identity(marker, false);
     this.marker = JSON.parse(readFileSync(marker, "utf8"));
     if (
-      this.marker.format !== "Dropbin-1" ||
+      this.marker.format !== "Dropdrop-1" ||
       !same(root, this.marker.root) ||
       !/^[a-f0-9]{64}$/.test(this.marker.secret)
     )

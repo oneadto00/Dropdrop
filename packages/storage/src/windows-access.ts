@@ -6,7 +6,7 @@ export function verifyWindowsAccess(root: string) {
 $ErrorActionPreference = 'Stop'
 $user = [Security.Principal.WindowsIdentity]::GetCurrent().User.Value
 $trusted = @($user,'S-1-5-18','S-1-5-32-544','S-1-3-0')
-$names = @('','instance.json','control.json','control.tmp','staging','objects','lock.sqlite','dropbin.sqlite','dropbin.sqlite-wal','dropbin.sqlite-shm','maintenance')
+$names = @('','instance.json','control.json','control.tmp','staging','objects','lock.sqlite','dropdrop.sqlite','dropdrop.sqlite-wal','dropdrop.sqlite-shm','maintenance')
 foreach ($name in $names) {
   $p = if ($name) { Join-Path $env:DROPDROP_ACL_ROOT $name } else { $env:DROPDROP_ACL_ROOT }
   if (!(Test-Path -LiteralPath $p)) { continue }

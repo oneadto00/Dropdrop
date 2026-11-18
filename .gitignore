@@ -6,10 +6,7 @@ coverage/
 *.sqlite*
 .env*
 .DS_Store
-dropbin-data/
 dropdrop-data/
-playwright-report/
-test-results/
 /docs/
 /[Aa][Gg][Ee][Nn][Tt][Ss].[Mm][Dd]
 /tests/

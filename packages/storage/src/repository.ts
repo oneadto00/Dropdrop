@@ -41,7 +41,7 @@ export class Repository {
   >();
   readonly db: Database.Database;
   constructor(instance: Instance) {
-    this.db = instance.database("dropbin.sqlite");
+    this.db = instance.database("dropdrop.sqlite");
     this.db.pragma("journal_mode=WAL");
     this.db.pragma("foreign_keys=ON");
     this.db.pragma("synchronous=FULL");
@@ -474,7 +474,7 @@ export class Repository {
   }
 }
 export function previewBatchCount(instance: Instance) {
-  const connection = instance.database("dropbin.sqlite", true);
+  const connection = instance.database("dropdrop.sqlite", true);
   try {
     return Number(
       connection.prepare("SELECT count(*) FROM batches").pluck().get(),
