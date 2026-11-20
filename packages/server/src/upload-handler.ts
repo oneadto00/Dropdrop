@@ -39,7 +39,6 @@ export async function handleUpload(
         },
       });
       if (f.sha256) {
-        // A retried request still has to supply the same bytes.
         meter.resume();
         await pipeline(part.file, meter, { signal: task.signal });
       } else {

@@ -49,7 +49,7 @@ export default tseslint.config(
       postprocess: (blocks) => blocks.flat(),
     },
     languageOptions: { parser: tseslint.parser },
-    // Vue 模板也会引用脚本绑定。
+    // 此处理器只检查脚本，无法识别模板中的引用。
     rules: { "@typescript-eslint/no-unused-vars": "off" },
   },
 );

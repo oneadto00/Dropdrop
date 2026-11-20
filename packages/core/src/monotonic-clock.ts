@@ -9,7 +9,7 @@ export function clock(
   return () => {
     const wall = wallTime(),
       mono = monotonic();
-    // A substantial rollback invalidates every pre-existing 24-hour lease.
+    // 大幅回拨时将逻辑时间推进超过 24 小时，使已有租约过期。
     if (wall < previousWall - 5000) {
       anchorTime = latest + 86400001;
       anchorMono = mono;

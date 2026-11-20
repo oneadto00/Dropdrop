@@ -4,8 +4,7 @@ import {
   createHmac,
   randomBytes,
 } from "node:crypto";
-// Only the failure reason may be recovered once a claim's database row is gone.
-// Binding the encrypted lookup key to the browser prevents cross-session lookups.
+
 export class ClaimTokenCodec {
   private readonly key: Buffer;
   constructor(secret: string) {
@@ -25,6 +24,7 @@ export class ClaimTokenCodec {
       "base64url",
     );
   }
+  // 接收会话记录删除后，服务端仍可为原浏览器查回摘要，用于解释失效原因。
   lookup(id: string, session: string) {
     if (!/^[A-Za-z0-9_-]{80}$/.test(id)) return;
     const token = Buffer.from(id, "base64url"),

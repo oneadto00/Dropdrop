@@ -37,8 +37,8 @@ function same(a: Identity, b: Identity) {
   return a.dev === b.dev && a.ino === b.ino;
 }
 export function safeRoot(input: string) {
-  // macOS exposes its system temporary folders through these system aliases.
   const absolute = resolve(input);
+  // 先解析 macOS 的系统路径别名，再检查实例路径是否包含符号链接。
   const path =
     process.platform === "darwin"
       ? absolute.replace(/^\/(tmp|var)(?=\/|$)/, "/private/$1")

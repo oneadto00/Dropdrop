@@ -1,7 +1,8 @@
 import { execFileSync } from "node:child_process";
-// Resolve principals by SID so localized Windows group names are irrelevant.
+
 export function verifyWindowsAccess(root: string) {
   if (process.platform !== "win32") return;
+  // 使用 SID 核验 ACL，避免依赖 Windows 本地化的组名。
   const script = String.raw`
 $ErrorActionPreference = 'Stop'
 $user = [Security.Principal.WindowsIdentity]::GetCurrent().User.Value
